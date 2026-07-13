@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<localEntry key="mongo_conn" xmlns="http://ws.apache.org/ns/synapse">
+  <mongodb.init>
+    <connectionType>MONGODB</connectionType>
+    <inputType>Connection String URI</inputType>
+    <connectionURI>{${configs.mongo_url}}</connectionURI>
+    <database>sample_mflix</database>
+    <name>mongo_conn</name>
+  </mongodb.init>
+</localEntry>

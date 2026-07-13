@@ -2,12 +2,37 @@
 <api context="/hello" name="hello" xmlns="http://ws.apache.org/ns/synapse">
     <resource methods="GET" uri-template="/">
         <inSequence>
+            <http.get configKey="test_http_conn">
+                <relativePath></relativePath>
+                <headers>[{"header1":"${configs.key1}"}]</headers>
+                <forceScAccepted>false</forceScAccepted>
+                <disableChunking>false</disableChunking>
+                <forceHttp10>false</forceHttp10>
+                <noKeepAlive>false</noKeepAlive>
+                <responseVariable>http_get_660</responseVariable>
+                <overwriteBody>false</overwriteBody>
+            </http.get>
             <log category="INFO" logMessageID="false" logFullPayload="false">
-                <message>hello</message>
+                <message>${vars.http_get_660.payload}</message>
             </log>
             <payloadFactory media-type="json" template-type="default">
-                <format>{"hello":"world"}</format>
+                <format>{"hello":"${configs.key1}"}</format>
             </payloadFactory>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+        </faultSequence>
+    </resource>
+    <resource methods="GET" uri-template="/mongo?search={search}">
+        <inSequence>
+            <mongodb.findOne configKey="mongo_conn">
+                <collection>users</collection>
+                <query>{${&quot;{name:{$regex:&apos;&quot; + params.queryParams.search + &quot;&apos;,$options:&apos;i&apos;}}&quot;}}</query>
+                <projection></projection>
+                <collation></collation>
+                <responseVariable>mongodb_findOne_262</responseVariable>
+                <overwriteBody>true</overwriteBody>
+            </mongodb.findOne>
             <respond/>
         </inSequence>
         <faultSequence>

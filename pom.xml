@@ -410,6 +410,18 @@
     <dependencies>
         <dependency>
             <groupId>org.wso2.integration.connector</groupId>
+            <artifactId>mi-connector-mongodb</artifactId>
+            <version>3.0.3</version>
+            <type>zip</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.integration.connector</groupId>
             <artifactId>mi-connector-http</artifactId>
             <version>0.1.14</version>
             <type>zip</type>
